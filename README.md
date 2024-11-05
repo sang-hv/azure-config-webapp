@@ -106,6 +106,13 @@ cp /home/laravel-worker.conf /etc/supervisor/conf.d/laravel-worker.conf
 service nginx restart
 service supervisor restart
 
+# Install Composer 
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+php -r "unlink('composer-setup.php');"
+
+COMPOSER_ALLOW_SUPERUSER=1  
+composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts -d /home/site/wwwroot
 
 php /home/site/wwwroot/artisan down --refresh=15 --secret="1630542a-246b-4b66-afa1-dd72a4c43515"
 
