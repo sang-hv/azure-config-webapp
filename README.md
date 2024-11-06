@@ -11,6 +11,17 @@ server {
     server_name  example.com www.example.com;
     port_in_redirect off;
 
+    # Remove  X-Powered-By and Server header
+    proxy_hide_header X-Powered-By;
+    fastcgi_hide_header X-Powered-By;
+    server_tokens off;
+    
+    # Add Strict-Transport-Security
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    
+    # Add X-Content-Type-Options
+    add_header X-Content-Type-Options "nosniff";c
+
     location / {
         try_files $uri $uri/ /index.php?$query_string;
     }
