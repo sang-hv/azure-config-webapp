@@ -123,7 +123,8 @@ php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 php -r "unlink('composer-setup.php');"
 
 COMPOSER_ALLOW_SUPERUSER=1  
-composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts -d /home/site/wwwroot
+#composer install --prefer-dist --no-ansi --no-interaction --no-progress --no-scripts -d /home/site/wwwroot
+composer dump-autoload
 
 php /home/site/wwwroot/artisan down --refresh=15 --secret="1630542a-246b-4b66-afa1-dd72a4c43515"
 
@@ -156,4 +157,10 @@ php /home/site/wwwroot/artisan l5-swagger:generate
 
 # Turn off maintenance mode
 php /home/site/wwwroot/artisan up
+
+# Install crontab 
+apt-get update -qq && apt-get install cron -yqq
+mkdir - p /home/LogFiles/cronjob
+(crontab -l 2>/dev/null; echo "* * * * * . /etc/profile && /usr/local/bin/php /home/site/wwwroot/artisan schedule:run >> /home/LogFiles/cronjob/cronjobresult.log 2>&1")|crontab
+ service cron start
 ```
