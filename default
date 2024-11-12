@@ -29,6 +29,10 @@ server {
     gzip_http_version 1.1;
 
     # Only access via custom domain
+    if ($http_host = "") {
+        return 403;
+    }
+
     if ($host != "api.bigskor.com") {
         return 403;
     }
