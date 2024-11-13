@@ -59,6 +59,6 @@ php /home/site/wwwroot/artisan up
 
 # Install crontab 
 apt-get update -qq && apt-get install cron -yqq
-mkdir - p /home/LogFiles/cronjob
+mkdir -p /home/LogFiles/cronjob
 (crontab -l 2>/dev/null; echo "* * * * * . /etc/profile && /usr/local/bin/php /home/site/wwwroot/artisan schedule:run >> /home/LogFiles/cronjob/cronjobresult.log 2>&1")|crontab
 service cron start
