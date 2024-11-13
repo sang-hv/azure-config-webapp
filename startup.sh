@@ -26,8 +26,7 @@ php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 php -r "unlink('composer-setup.php');"
 
-COMPOSER_ALLOW_SUPERUSER=1
-composer dump-autoload
+composer dump-autoload -d /home/site/wwwroot/ -n
 
 php /home/site/wwwroot/artisan migrate --force
 php /home/site/wwwroot/artisan db:seed --force
